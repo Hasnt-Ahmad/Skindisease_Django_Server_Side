@@ -11,12 +11,10 @@ from django.views.decorators.csrf import csrf_exempt
 def file_upload_view(request):
     if request.method == 'POST':
 
-        print("Yes")
         img_file = request.FILES['file']
         img_data = img_file.read()
         img_array = np.frombuffer(img_data, np.uint8)
         predict_im = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-        print("Correct")
         try:
             predictions = model.predictDisease(predict_im)
             print("Prediction : ",predictions)
